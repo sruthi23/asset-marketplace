@@ -27,8 +27,8 @@ class Main extends React.Component {
   // Run your desired functions here
   async componentDidMount() {
     await this.setProvider();
-    const newLedger = await this.deployNewLedger();
-    await this.setExistingLedger(newLedger);
+    //  const newLedger = await this.deployNewLedger();
+    await this.setExistingLedger();
     await this.setAssetArray();
     // await this.deployArtAsset()
   }
@@ -37,14 +37,14 @@ class Main extends React.Component {
   async setProvider() {
     const provider = new MetamaskProvider();
     if (!(await provider.isEnabled())) await provider.enable();
-    await this.setState({ provider });
+    await this.setState({ provider: provider });
   }
 
   // To set the ledger as a state object
-  async setExistingLedger(newLedger) {
-    const ledgerAddress = newLedger;
+  async setExistingLedger() {
+    const ledgerAddress = "0x365124462e2Fffa3cDF3Fb1e2512d5837Da35a75";
     const ledger = AssetLedger.getInstance(this.state.provider, ledgerAddress);
-    await this.setState({ ledger });
+    await this.setState({ ledger: ledger });
   }
 
   async setAssetArray() {
@@ -79,10 +79,10 @@ class Main extends React.Component {
 
   // To get user ERC721 token balance
   async getUserBalance() {
-    console.log(web3.eth);
+    console.log("lederrrrr", this.state.ledger);
     //const balance = await this.state.ledger.getBalance(web3.eth.accounts[0]);
     const balance = await this.state.ledger.getBalance(
-      0x7143b3c1713e1e67975fa21ca3c96c58f9fcb9af
+      "0x7143b3c1713e1e67975fa21ca3c96c58f9fcb9af"
     );
     return balance;
   }
@@ -146,7 +146,7 @@ class Main extends React.Component {
       .createAsset({
         id: assetId,
         imprint: imprint, // You must generate a new imprint for each asset
-        receiverId: 0x7143b3c1713e1e67975fa21ca3c96c58f9fcb9af //web3.eth.accounts[0]
+        receiverId: "0x7143B3C1713E1E67975Fa21ca3c96C58F9FCb9Af"
       })
       .then(mutation => {
         console.log("Creating new asset, this may take a while...");
@@ -164,9 +164,9 @@ class Main extends React.Component {
   render() {
     return (
       <div>
-        <h1>ERC721 Art Marketplace</h1>
+        <h1>ERC721 Asset Marketplace</h1>
         <p>
-          In this marketplace you can deploy unique ERC721 art pieces to the
+          In this marketplace you can deploy unique ERC721 asset to the
           blockchain with 0xcert.
         </p>
         <div className="assets-container">{this.state.assets}</div>
@@ -204,9 +204,9 @@ class ArtPiece extends React.Component {
           width="300px"
         />
         <div className="art-id">{this.props.assetId}</div>
-        // <div className="art-owner">{web3.eth.accounts[0]}</div>
+
         <div className="art-owner">
-          {0x7143b3c1713e1e67975fa21ca3c96c58f9fcb9af}
+          {0x365124462e2fffa3cdf3fb1e2512d5837da35a75}
         </div>
       </div>
     );

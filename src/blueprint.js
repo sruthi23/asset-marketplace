@@ -6,7 +6,7 @@ async displayBlueprint() {
     const asset = {
         description: 'A lighthouse watercolor picture',
         image: 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Taran_Lighthouse_Kalinigrad_Oblast_Tatiana_Yagunova_Watercolor_painting.jpg',
-        name: 'Lighthouse Watercolor'
+        name: 'Lighthouse Watercolor',
     }
     // The imprint is the hashed proof for our asset
     console.log('Imprint', await cert.imprint(asset))
